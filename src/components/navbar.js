@@ -4,25 +4,34 @@ import { getCurrentUser, logOut } from '../firebase.js';
 import { showToast } from './toast.js';
 
 const navItems = [
-    { label: 'Main', type: 'section' },
-    { path: '/', icon: 'layout-dashboard', label: 'Dashboard' },
-    { path: '/symptom-checker', icon: 'stethoscope', label: 'Symptom Checker' },
-    { path: '/ask-doctor', icon: 'message-circle-heart', label: 'Ask a Doctor' },
-    { label: 'Health Tools', type: 'section' },
-    { path: '/medicine-reminder', icon: 'pill', label: 'Medicine Reminder' },
-    { path: '/health-tips', icon: 'heart-pulse', label: 'Health Tips' },
-    { path: '/medical-reports', icon: 'file-text', label: 'Medical Reports' },
-    { path: '/book-appointment', icon: 'calendar-check', label: 'Book Appointment' },
-    { label: 'Emergency', type: 'section' },
-    { path: '/emergency-sos', icon: 'siren', label: 'Emergency SOS', className: 'sos-item' },
-    { path: '/nearby-clinics', icon: 'map-pin', label: 'Nearby Clinics' },
+  { label: 'Main', type: 'section' },
+  { path: '/', icon: 'layout-dashboard', label: 'Dashboard' },
+  { path: '/symptom-checker', icon: 'stethoscope', label: 'Symptom Checker' },
+  { path: '/ask-doctor', icon: 'message-circle-heart', label: 'Ask a Doctor' },
+  { label: 'Health Tools', type: 'section' },
+  { path: '/bmi-calculator', icon: 'scale', label: 'BMI Calculator' },
+  { path: '/health-log', icon: 'activity', label: 'Health Log' },
+  { path: '/water-tracker', icon: 'droplets', label: 'Water Tracker' },
+  { path: '/health-goals', icon: 'target', label: 'Health Goals' },
+  { path: '/mood-tracker', icon: 'smile', label: 'Mood Tracker' },
+  { path: '/medicine-reminder', icon: 'pill', label: 'Medicine Reminder' },
+  { path: '/health-tips', icon: 'heart-pulse', label: 'Health Tips' },
+  { path: '/medical-reports', icon: 'file-text', label: 'Medical Reports' },
+  { path: '/book-appointment', icon: 'calendar-check', label: 'Book Appointment' },
+  { label: 'Emergency', type: 'section' },
+  { path: '/emergency-sos', icon: 'siren', label: 'Emergency SOS', className: 'sos-item' },
+  { path: '/nearby-clinics', icon: 'map-pin', label: 'Nearby Clinics' },
+  { path: '/emergency-contacts', icon: 'phone-call', label: 'Emergency Contacts' },
+  { path: '/first-aid', icon: 'heart-handshake', label: 'First Aid Guide' },
+  { label: 'Other', type: 'section' },
+  { path: '/support', icon: 'coffee', label: 'Support Developer' },
 ];
 
 export function renderNavbar(currentPath) {
-    const user = getCurrentUser();
-    const initials = user?.displayName ? user.displayName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) : user?.email?.[0]?.toUpperCase() || 'U';
+  const user = getCurrentUser();
+  const initials = user?.displayName ? user.displayName.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2) : user?.email?.[0]?.toUpperCase() || 'U';
 
-    return `
+  return `
     <!-- Mobile Header -->
     <div class="mobile-header">
       <button class="hamburger-btn" id="hamburger-btn">
@@ -46,17 +55,17 @@ export function renderNavbar(currentPath) {
 
       <div class="sidebar-nav">
         ${navItems.map(item => {
-        if (item.type === 'section') {
-            return `<div class="nav-section-label">${item.label}</div>`;
-        }
-        const isActive = currentPath === item.path;
-        return `
+    if (item.type === 'section') {
+      return `<div class="nav-section-label">${item.label}</div>`;
+    }
+    const isActive = currentPath === item.path;
+    return `
             <div class="nav-item ${isActive ? 'active' : ''} ${item.className || ''}" data-route="${item.path}">
               <i data-lucide="${item.icon}" class="nav-icon"></i>
               <span>${item.label}</span>
             </div>
           `;
-    }).join('')}
+  }).join('')}
       </div>
 
       <div class="sidebar-footer">
@@ -75,37 +84,37 @@ export function renderNavbar(currentPath) {
 }
 
 export function initNavbar() {
-    // Nav item clicks
-    document.querySelectorAll('.nav-item[data-route]').forEach(item => {
-        item.addEventListener('click', () => {
-            const route = item.dataset.route;
-            router.navigate(route);
-            closeSidebar();
-        });
+  // Nav item clicks
+  document.querySelectorAll('.nav-item[data-route]').forEach(item => {
+    item.addEventListener('click', () => {
+      const route = item.dataset.route;
+      router.navigate(route);
+      closeSidebar();
     });
+  });
 
-    // Profile click
-    document.querySelector('.sidebar-user[data-route]')?.addEventListener('click', () => {
-        router.navigate('/profile');
-        closeSidebar();
-    });
+  // Profile click
+  document.querySelector('.sidebar-user[data-route]')?.addEventListener('click', () => {
+    router.navigate('/profile');
+    closeSidebar();
+  });
 
-    // Mobile hamburger
-    document.getElementById('hamburger-btn')?.addEventListener('click', toggleSidebar);
-    document.getElementById('sidebar-overlay')?.addEventListener('click', closeSidebar);
+  // Mobile hamburger
+  document.getElementById('hamburger-btn')?.addEventListener('click', toggleSidebar);
+  document.getElementById('sidebar-overlay')?.addEventListener('click', closeSidebar);
 
-    // Initialize Lucide icons
-    if (window.lucide) {
-        window.lucide.createIcons();
-    }
+  // Initialize Lucide icons
+  if (window.lucide) {
+    window.lucide.createIcons();
+  }
 }
 
 function toggleSidebar() {
-    document.getElementById('sidebar')?.classList.toggle('open');
-    document.getElementById('sidebar-overlay')?.classList.toggle('active');
+  document.getElementById('sidebar')?.classList.toggle('open');
+  document.getElementById('sidebar-overlay')?.classList.toggle('active');
 }
 
 function closeSidebar() {
-    document.getElementById('sidebar')?.classList.remove('open');
-    document.getElementById('sidebar-overlay')?.classList.remove('active');
+  document.getElementById('sidebar')?.classList.remove('open');
+  document.getElementById('sidebar-overlay')?.classList.remove('active');
 }

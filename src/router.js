@@ -29,7 +29,9 @@ class Router {
         const path = this.getCurrentRoute();
         const protectedRoutes = ['/', '/symptom-checker', '/emergency-sos', '/health-tips',
             '/medicine-reminder', '/book-appointment', '/ask-doctor', '/medical-reports',
-            '/nearby-clinics', '/profile'];
+            '/nearby-clinics', '/profile', '/support',
+            '/bmi-calculator', '/health-log', '/water-tracker', '/health-goals',
+            '/mood-tracker', '/emergency-contacts', '/first-aid'];
 
         // Auth guard
         if (this.authGuard && protectedRoutes.includes(path)) {

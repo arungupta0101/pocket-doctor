@@ -14,6 +14,14 @@ import { renderAskDoctor } from './pages/ask-doctor.js';
 import { renderMedicalReports } from './pages/medical-reports.js';
 import { renderNearbyClinics } from './pages/nearby-clinics.js';
 import { renderProfile } from './pages/profile.js';
+import { renderSupport } from './pages/support.js';
+import { renderBMICalculator } from './pages/bmi-calculator.js';
+import { renderHealthLog } from './pages/health-log.js';
+import { renderWaterTracker } from './pages/water-tracker.js';
+import { renderHealthGoals } from './pages/health-goals.js';
+import { renderMoodTracker } from './pages/mood-tracker.js';
+import { renderEmergencyContacts } from './pages/emergency-contacts.js';
+import { renderFirstAid } from './pages/first-aid.js';
 
 // Register routes
 router
@@ -27,7 +35,15 @@ router
     .addRoute('/ask-doctor', renderAskDoctor)
     .addRoute('/medical-reports', renderMedicalReports)
     .addRoute('/nearby-clinics', renderNearbyClinics)
-    .addRoute('/profile', renderProfile);
+    .addRoute('/support', renderSupport)
+    .addRoute('/profile', renderProfile)
+    .addRoute('/bmi-calculator', renderBMICalculator)
+    .addRoute('/health-log', renderHealthLog)
+    .addRoute('/water-tracker', renderWaterTracker)
+    .addRoute('/health-goals', renderHealthGoals)
+    .addRoute('/mood-tracker', renderMoodTracker)
+    .addRoute('/emergency-contacts', renderEmergencyContacts)
+    .addRoute('/first-aid', renderFirstAid);
 
 // Auth guard
 router.setAuthGuard(() => {
